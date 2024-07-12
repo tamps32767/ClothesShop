@@ -3,6 +3,7 @@ plugins {
 }
 
 android {
+
     namespace = "com.example.clothesshop"
     compileSdk = 34
 
@@ -28,6 +29,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 

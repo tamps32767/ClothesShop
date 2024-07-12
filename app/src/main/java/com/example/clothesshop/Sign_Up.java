@@ -15,9 +15,7 @@ public class Sign_Up extends AppCompatActivity {
 
 
     TextView txtSignIn = findViewById(R.id.txtSignIn);
-        txtSignIn.setOnClickListener(new View.OnClickListener()
-
-    {
+        txtSignIn.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick (View v){
         Intent intent = new Intent(Sign_Up.this, Sign_In.class);
