@@ -73,7 +73,7 @@
         android:backgroundTint="#F54749"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:text="SIGN IN" />
+        android:text="SIGN UP" />
     <TextView
         android:id="@+id/txtSignIn"
         android:layout_width="wrap_content"

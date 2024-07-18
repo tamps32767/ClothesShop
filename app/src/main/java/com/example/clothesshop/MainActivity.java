@@ -1,51 +1,44 @@
 package com.example.clothesshop;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.MenuItem;
+
 import com.example.clothesshop.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
-
-    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        relaceFragment(new Fragment_Home());
+        setContentView(R.layout.activity_main);
 
-        binding.btnMenu.setOnItemSelectedListener(item -> {
+        BottomNavigationView btnMenu = findViewById(R.id.btnMenu);
 
-            switch (item.getItemId()){
-                case R.id.home:
-                    relaceFragment(new Fragment_Home());
-                    break;
-
-                case R.id.favourite:
-                    relaceFragment(new Fragment_Favourite());
-                    break;
-
-                case R.id.cart:
-                    relaceFragment(new Fragment_Cart());
-                    break;
-
-                case R.id.account:
-                    relaceFragment(new Fragment_Account());
-                    break;
+        btnMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment;
+                if (item.getItemId() == R.id.home){
+                    fragment = new Fragment_Home();
+                }else if (item.getItemId() == R.id.favourite){
+                    fragment = new Fragment_Favourite();
+                } else if (item.getItemId() == R.id.cart) {
+                    fragment = new Fragment_Cart();
+                }else {
+                    fragment = new Fragment_Account();
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, fragment).commit();
+                return true;
             }
-            return true;
-
         });
-    }
-    private void relaceFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_layout, fragment);
-        fragmentTransaction.commit();
+
     }
 }

@@ -28,6 +28,7 @@ public class Sign_In extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Sign_In.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
