@@ -11,11 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.clothesshop.model.User;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class Sign_Up extends AppCompatActivity {
 
@@ -31,10 +31,17 @@ public class Sign_Up extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
 
-        tfName = findViewById(R.id.tfName);
-        tfEmail = findViewById(R.id.tfEmail);
-        tfPassword = findViewById(R.id.tfPassword);
-        tfrePassword = findViewById(R.id.tfrePassword);
+        // Chuyển kiểu từ TextInputLayout sang TextInputEditText
+        TextInputLayout nameInputLayout = findViewById(R.id.tfName);
+        TextInputLayout emailInputLayout = findViewById(R.id.tfEmail);
+        TextInputLayout passwordInputLayout = findViewById(R.id.tfPassword);
+        TextInputLayout confirmPasswordInputLayout = findViewById(R.id.tfrePassword);
+
+        tfName = (TextInputEditText) nameInputLayout.getEditText();
+        tfEmail = (TextInputEditText) emailInputLayout.getEditText();
+        tfPassword = (TextInputEditText) passwordInputLayout.getEditText();
+        tfrePassword = (TextInputEditText) confirmPasswordInputLayout.getEditText();
+
         btnSignUp = findViewById(R.id.btnSignUp);
         txtSignIn = findViewById(R.id.txtSignIn);
 
@@ -43,23 +50,27 @@ public class Sign_Up extends AppCompatActivity {
             public void onClick(View view) {
                 String name = tfName.getText().toString();
                 String email = tfEmail.getText().toString();
-                String password = tfrePassword.getText().toString();
+                String password = tfPassword.getText().toString();
                 String rePassword = tfrePassword.getText().toString();
-                registerUser(name, email, password );
+
+                if (password.equals(rePassword)) {
+                    registerUser(name, email, password);
+                } else {
+                    Toast.makeText(Sign_Up.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         txtSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
-            finish();
+            public void onClick(View v) {
+                finish();
             }
         });
     }
+
     private void registerUser(String username, String email, String password) {
-        APIService apiService = RetrofitClient
-                .getRetrofitInstance()
-                .create(APIService.class);
+        APIService apiService = RetrofitClient.getRetrofitInstance().create(APIService.class);
         User user = new User(username, email, password);
 
         Call<User> call = apiService.registerUser(user);
@@ -68,22 +79,19 @@ public class Sign_Up extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     User user = response.body();
-                    if (user != null) {
-                        // Xử lý phản hồi đăng ký thành công (Chuyển hướng, thông báo, v.v.)
+                    if (user != null && user.isSuccess()) {
+                        // Xử lý phản hồi đăng ký thành công
                         Toast.makeText(Sign_Up.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Sign_Up.this, Sign_In.class);
+                        startActivity(intent);
                     } else {
-                        // Xử lý lỗi khi đăng ký (Thông báo lỗi, v.v.)
-                        Toast.makeText(Sign_Up.this, "Registration Failed: " , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Sign_Up.this, "Registration Failed: Invalid response", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     // Xử lý lỗi phản hồi từ server
                     Toast.makeText(Sign_Up.this, "Registration Failed: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
-
-
-
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
@@ -92,5 +100,4 @@ public class Sign_Up extends AppCompatActivity {
             }
         });
     }
-
 }
