@@ -34,8 +34,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public boolean isSuccess() {
         // Ví dụ kiểm tra điều kiện thành công, tùy theo yêu cầu của bạn
         return email != null && !email.isEmpty();
     }
+
 }
