@@ -26,6 +26,7 @@ public class Sign_Up extends AppCompatActivity {
     private Button btnSignUp;
     private TextView txtSignIn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,11 +54,6 @@ public class Sign_Up extends AppCompatActivity {
                 String password = tfPassword.getText().toString();
                 String rePassword = tfrePassword.getText().toString();
 
-                if (password.equals(rePassword)) {
-                    registerUser(name, email, password);
-                } else {
-                    Toast.makeText(Sign_Up.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -69,35 +65,4 @@ public class Sign_Up extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String username, String email, String password) {
-        APIService apiService = RetrofitClient.getRetrofitInstance().create(APIService.class);
-        User user = new User(username, email, password);
-
-        Call<User> call = apiService.registerUser(user);
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    User user = response.body();
-                    if (user != null && user.isSuccess()) {
-                        // Xử lý phản hồi đăng ký thành công
-                        Toast.makeText(Sign_Up.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Sign_Up.this, Sign_In.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(Sign_Up.this, "Registration Failed: Invalid response", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    // Xử lý lỗi phản hồi từ server
-                    Toast.makeText(Sign_Up.this, "Registration Failed: " + response.message(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                // Xử lý lỗi khi gọi API
-                Toast.makeText(Sign_Up.this, "Registration Failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 }
