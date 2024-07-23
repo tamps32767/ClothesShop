@@ -34,18 +34,8 @@ public class Sign_In extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
 
-        // Chuyển kiểu từ TextInputLayout sang TextInputEditText
-
-        TextInputLayout emailInputLayout = findViewById(R.id.tfEmail);
-        TextInputLayout passwordInputLayout = findViewById(R.id.tfPassword);
-
-
-
-        tfEmail = (TextInputEditText) emailInputLayout.getEditText();
-        tfPassword = (TextInputEditText) passwordInputLayout.getEditText();
-
-
-
+        tfEmail = findViewById(R.id.tfEmail);
+        tfPassword = findViewById(R.id.tfPassword);
 
         txtSignUp = findViewById(R.id.txtSignUp);
         btnSignIn = findViewById(R.id.btnSignIn);
