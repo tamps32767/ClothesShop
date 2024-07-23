@@ -40,9 +40,4 @@ public class User {
         this.password = password;
     }
 
-    public boolean isSuccess() {
-        // Ví dụ kiểm tra điều kiện thành công, tùy theo yêu cầu của bạn
-        return email != null && !email.isEmpty();
-    }
-
 }
