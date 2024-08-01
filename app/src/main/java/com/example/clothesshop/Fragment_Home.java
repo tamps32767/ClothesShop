@@ -2,6 +2,7 @@ package com.example.clothesshop;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +29,7 @@ public class Fragment_Home extends Fragment {
     private RecyclerView rcvProducts;
     private ProductAdapter productAdapter;
     private List<Product> mListProduct;
+    private SearchView svSearch;
 
 
     @Override
@@ -37,6 +39,20 @@ public class Fragment_Home extends Fragment {
         View view = inflater.inflate(R.layout.fragment__home, container, false);
 
         rcvProducts = view.findViewById(R.id.rcvProducts);
+        svSearch = view.findViewById(R.id.svSearch);
+
+        svSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fillterList(newText);
+                return true;
+            }
+        });
 
         ProductDao productDao = new ProductDao(getContext());
         ArrayList<Product> list = productDao.getProduct();
@@ -47,5 +63,19 @@ public class Fragment_Home extends Fragment {
         rcvProducts.setAdapter(productAdapter);
 
         return view;
+    }
+
+    private void fillterList(String newText) {
+        List<Product> fillteredList = new ArrayList<>();
+        for (Product product : mListProduct) {
+            if (product.getName().toLowerCase().contains(newText.toLowerCase())) {
+                fillteredList.add(product);
+            }
+        }
+        if (fillteredList.isEmpty()){
+        //Toast.makeText(this, "Không tìm thấy sản phẩm", Toast.LENGTH_SHORT).show();
+        }else {
+            productAdapter.setFillteredList(fillteredList);
+        }
     }
 }
