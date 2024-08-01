@@ -12,7 +12,6 @@
         android:layout_height="150dp"
         android:background="#F83C3C"
         android:padding="16dp">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,7 +20,6 @@
             android:textSize="20dp"
             android:textColor="@color/white"
             android:layout_marginTop="40dp"/>
-
     </RelativeLayout>
 
     <FrameLayout
@@ -44,9 +42,7 @@
             android:layout_toEndOf="@id/profile_image"
             android:layout_centerVertical="true"
             android:layout_marginLeft="85dp"
-            android:layout_marginTop="20dp"
-            >
-
+            android:layout_marginTop="20dp">
             <TextView
                 android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
@@ -55,7 +51,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/profile_email"
                 android:layout_width="wrap_content"
@@ -72,60 +67,119 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:layout_marginTop="180dp">
-
-        <TextView
-            android:id="@+id/order_history"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="16dp"
-            android:padding="16dp"
-            android:text="Order History"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calendar"
+                android:layout_marginTop="13dp"/>
+            <TextView
+                android:id="@+id/order_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="16dp"
+                android:padding="16dp"
+                android:text="Order History"
+                android:textSize="16sp"
+                android:layout_marginLeft="12dp"/>
+        </FrameLayout>
 
-        <TextView
-            android:id="@+id/payment_method"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="16dp"
-            android:padding="16dp"
-            android:text="Payment Method"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_card"
+                android:layout_marginTop="13dp"/>
+            <TextView
+                android:id="@+id/payment_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="16dp"
+                android:padding="16dp"
+                android:text="Payment Method"
+                android:textSize="16sp"
+                android:layout_marginLeft="12dp"/>
+        </FrameLayout>
 
-        <TextView
-            android:id="@+id/my_address"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="16dp"
-            android:padding="16dp"
-            android:text="My Address"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_location"
+                android:layout_marginTop="13dp"/>
+            <TextView
+                android:id="@+id/my_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="16dp"
+                android:padding="16dp"
+                android:text="My Address"
+                android:textSize="16sp"
+                android:layout_marginLeft="12dp"/>
+        </FrameLayout>
 
-        <TextView
-            android:id="@+id/my_promocodes"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="16dp"
-            android:padding="16dp"
-            android:text="My Promocodes"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_promocode"
+                android:layout_marginTop="13dp"/>
+            <TextView
+                android:id="@+id/my_promocode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="16dp"
+                android:padding="16dp"
+                android:text="My Promocode"
+                android:textSize="16sp"
+                android:layout_marginLeft="12dp"/>
+        </FrameLayout>
 
-        <TextView
-            android:id="@+id/my_favorite"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="16dp"
-            android:padding="16dp"
-            android:text="My Favorite"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_favorite"
+                android:layout_marginTop="13dp"/>
+            <TextView
+                android:id="@+id/my_favorite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="16dp"
+                android:padding="16dp"
+                android:text="My Favorite"
+                android:textSize="16sp"
+                android:layout_marginLeft="12dp"/>
+        </FrameLayout>
 
-        <TextView
-            android:id="@+id/sign_out"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="16dp"
-            android:padding="16dp"
-            android:text="Sign out"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_logout"
+                android:layout_marginTop="13dp"/>
+            <TextView
+                android:id="@+id/log_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="16dp"
+                android:padding="16dp"
+                android:text="Sign out"
+                android:textSize="16sp"
+                android:layout_marginLeft="12dp"/>
+        </FrameLayout>
     </LinearLayout>
 
 
