@@ -19,9 +19,13 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
 
     private List<Product> mListProduct;
+    private Context context;
+    private OnItemClickListener listener;
 
-    public ProductAdapter(List<Product> mListProduct, Context context) {
+    public ProductAdapter(List<Product> mListProduct, Context context, OnItemClickListener listener) {
         this.mListProduct = mListProduct;
+        this.context = context;
+        this.listener = listener;
     }
 
     public void setFillteredList (List<Product> fillteredList){
@@ -59,6 +63,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return 0;
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Product product);
+    }
+
     public class ProductViewHolder extends RecyclerView.ViewHolder{
 
         private TextView txtNameProducts, txtPriceProducts;
@@ -70,5 +78,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             txtPriceProducts = itemView.findViewById(R.id.txtPriceProducts);
             imgProducts = itemView.findViewById(R.id.imgProducts);
         }
+        public void bind(final Product product, final OnItemClickListener listener) {
+            // Liên kết dữ liệu sản phẩm với các view
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(product);
+                }
+            });
+        }
+
     }
 }

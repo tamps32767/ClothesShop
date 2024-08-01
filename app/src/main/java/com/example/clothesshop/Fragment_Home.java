@@ -59,7 +59,16 @@ public class Fragment_Home extends Fragment {
 
         rcvProducts.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mListProduct = new ArrayList<>();
-        productAdapter = new ProductAdapter(list, getContext());
+        productAdapter = new ProductAdapter(list, getContext(), new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                Fragment fragment = Fragment_Favourite.newInstance(product);
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.framelayout, fragment) // Replace with the appropriate container ID
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
         rcvProducts.setAdapter(productAdapter);
 
         return view;
