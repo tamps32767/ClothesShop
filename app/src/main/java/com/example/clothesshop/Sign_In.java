@@ -1,6 +1,7 @@
 package com.example.clothesshop;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.clothesshop.dao.UserDao;
 import com.example.clothesshop.model.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -28,6 +30,7 @@ public class Sign_In extends AppCompatActivity {
     private TextInputEditText tfPassword;
     private Button btnSignIn;
     private TextView txtSignUp;
+    private UserDao userDao;
 
 
 
@@ -38,9 +41,9 @@ public class Sign_In extends AppCompatActivity {
 
         tfEmail = findViewById(R.id.tfEmail);
         tfPassword = findViewById(R.id.tfPassword);
-
         txtSignUp = findViewById(R.id.txtSignUp);
         btnSignIn = findViewById(R.id.btnSignIn);
+        userDao = new UserDao(this);
         txtSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,9 +57,15 @@ public class Sign_In extends AppCompatActivity {
                 String email = tfEmail.getText().toString();
                 String password = tfPassword.getText().toString();
 
-
-                Intent intent = new Intent(Sign_In.this, MainActivity.class);
-                startActivity(intent);
+                if (userDao.checkDangNhap(email,password)){
+                    SharedPreferences sharedPreferences = getSharedPreferences("THONGTIN", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("email", email);
+                    editor.commit();
+                    startActivity(new Intent(Sign_In.this, MainActivity.class));
+                }else {
+                    Toast.makeText(Sign_In.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
