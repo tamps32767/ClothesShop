@@ -24,6 +24,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.mListProduct = mListProduct;
     }
 
+    public void setFillteredList (List<Product> fillteredList){
+        this.mListProduct = fillteredList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
