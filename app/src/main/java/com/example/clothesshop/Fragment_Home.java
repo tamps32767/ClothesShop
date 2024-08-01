@@ -55,7 +55,9 @@ public class Fragment_Home extends Fragment {
         });
 
         ProductDao productDao = new ProductDao(getContext());
+        mListProduct = productDao.getProduct();
         ArrayList<Product> list = productDao.getProduct();
+
 
         rcvProducts.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mListProduct = new ArrayList<>();
@@ -82,9 +84,9 @@ public class Fragment_Home extends Fragment {
             }
         }
         if (fillteredList.isEmpty()){
-        //Toast.makeText(this, "Không tìm thấy sản phẩm", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Không tìm thấy sản phẩm", Toast.LENGTH_SHORT).show();
         }else {
-            productAdapter.setFillteredList(fillteredList);
+            productAdapter.setFilteredList(fillteredList);
         }
     }
 }

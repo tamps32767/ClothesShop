@@ -16,20 +16,24 @@ import com.example.clothesshop.model.Product;
 
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private List<Product> mListProduct;
     private Context context;
     private OnItemClickListener listener;
 
-    public ProductAdapter(List<Product> mListProduct, Context context, OnItemClickListener listener) {
-        this.mListProduct = mListProduct;
+    public interface OnItemClickListener {
+        void onItemClick(Product product);
+    }
+
+    public ProductAdapter(List<Product> list, Context context, OnItemClickListener listener) {
+        this.mListProduct = list;
         this.context = context;
         this.listener = listener;
     }
 
-    public void setFillteredList (List<Product> fillteredList){
-        this.mListProduct = fillteredList;
+    public void setFilteredList(List<Product> filteredList) {
+        this.mListProduct = filteredList;
         notifyDataSetChanged();
     }
 
@@ -43,11 +47,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = mListProduct.get(position);
-        if (product == null){
+        if (product == null) {
             return;
         }
+        holder.bind(product, listener);
         holder.txtNameProducts.setText(product.getName());
-        holder.txtPriceProducts.setText(product.getPrice());
+        holder.txtPriceProducts.setText(String.valueOf(product.getPrice()));
         Glide.with(holder.itemView.getContext())
                 .load(product.getImageUrl())
                 .placeholder(R.drawable.product) // Hình ảnh hiển thị khi đang tải
@@ -57,17 +62,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public int getItemCount() {
-        if (mListProduct != null){
+        if (mListProduct != null) {
             return mListProduct.size();
         }
         return 0;
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(Product product);
-    }
-
-    public class ProductViewHolder extends RecyclerView.ViewHolder{
+    public class ProductViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txtNameProducts, txtPriceProducts;
         private ImageView imgProducts;
@@ -78,8 +79,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             txtPriceProducts = itemView.findViewById(R.id.txtPriceProducts);
             imgProducts = itemView.findViewById(R.id.imgProducts);
         }
-        public void bind(final Product product, final OnItemClickListener listener) {
-            // Liên kết dữ liệu sản phẩm với các view
+
+        public void bind(Product product, OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -87,6 +88,5 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 }
             });
         }
-
     }
 }

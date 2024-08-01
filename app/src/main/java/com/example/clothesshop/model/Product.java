@@ -1,6 +1,11 @@
 package com.example.clothesshop.model;
 
-public class Product {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Product implements Parcelable {
     private String name;
     private String description;
     private String price;
@@ -53,5 +58,19 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(description);
+        parcel.writeString(price);
+        parcel.writeString(quantity);
+        parcel.writeString(imageUrl);
     }
 }
