@@ -28,7 +28,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         //data
         sqLiteDatabase.execSQL("INSERT INTO PRODUCT VALUES (1, 'Váy', '', '50000', '', '30'),(2, 'Váy', '', '50000', '', '30'),(3, 'Váy', '', '50000', '', '30'),(4, 'Váy', '', '50000', '', '30')");
-
+        sqLiteDatabase.execSQL("INSERT INTO USER VALUES(1, 'Tam', 'tam@gmail.com', '123', '1234567890', '123 Address St')");
     }
 
     @Override

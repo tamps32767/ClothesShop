@@ -1,5 +1,6 @@
 package com.example.clothesshop.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.clothesshop.R;
 import com.example.clothesshop.model.Product;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     private List<Product> mListProduct;
 
-    public ProductAdapter(List<Product> mListProduct) {
+    public ProductAdapter(List<Product> mListProduct, Context context) {
         this.mListProduct = mListProduct;
     }
 
@@ -38,7 +39,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
         holder.txtNameProducts.setText(product.getName());
         holder.txtPriceProducts.setText(product.getPrice());
-        Picasso.get().load(product.getImageUrl()).into(holder.imgProducts);
+        Glide.with(holder.itemView.getContext())
+                .load(product.getImageUrl())
+                .placeholder(R.drawable.product) // Hình ảnh hiển thị khi đang tải
+                .error(R.drawable.product) // Hình ảnh hiển thị khi tải lỗi
+                .into(holder.imgProducts);
     }
 
     @Override

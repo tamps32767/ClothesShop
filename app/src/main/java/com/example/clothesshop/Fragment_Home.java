@@ -3,6 +3,7 @@ package com.example.clothesshop;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,27 +34,18 @@ public class Fragment_Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment__home, container, false);
 
         rcvProducts = view.findViewById(R.id.rcvProducts);
-        rcvProducts.setLayoutManager(new LinearLayoutManager(getContext()));
-        mListProduct = new ArrayList<>();
 
-        // Initialize adapter with an empty list
-        productAdapter = new ProductAdapter(new ArrayList<>());
+        ProductDao productDao = new ProductDao(getContext());
+        ArrayList<Product> list = productDao.getProduct();
+
+        rcvProducts.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        mListProduct = new ArrayList<>();
+        productAdapter = new ProductAdapter(list, getContext());
         rcvProducts.setAdapter(productAdapter);
 
-        // Load product data from API
-        loadProductData();
-
         return view;
-    }
-
-    private void loadProductData() {
-        mListProduct.add(new Product("Product 1","", "100$", "30","https://example.com/image1.jpg"));
-        mListProduct.add(new Product("Product 2","", "200$", "10","https://example.com/image2.jpg"));
-        mListProduct.add(new Product("Product 3","", "300$", "20","https://example.com/image3.jpg"));
-        mListProduct.add(new Product("Product 4", "","300$","5", "https://example.com/image4.jpg"));
     }
 }
