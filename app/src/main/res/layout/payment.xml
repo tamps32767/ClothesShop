@@ -1,6 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" tools:context=".Payment">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+        <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@color/white" android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            <ImageView android:id="@+id/back_button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/back" android:contentDescription="Back" android:layout_gravity="start" android:padding="16dp"/>
+            <TextView android:id="@+id/toolbar_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Payment Method" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/black" android:layout_gravity="center"/>
+        </androidx.appcompat.widget.Toolbar>
+        <!--  New RelativeLayout for Credit Cards and Add button  -->
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:gravity="center_vertical">
+            <TextView android:id="@+id/credit_cards_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Credit Cards" android:textSize="16sp" android:textStyle="bold" android:layout_alignParentStart="true" android:layout_centerVertical="true"/>
+            <LinearLayout android:id="@+id/add_button_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:orientation="horizontal" android:gravity="center_vertical" android:layout_centerVertical="true" android:paddingStart="16dp" android:paddingEnd="16dp">
+                <TextView android:id="@+id/add_text" android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textColor="@android:color/holo_red_dark" android:textSize="16sp" android:gravity="center_vertical"/>
+                <ImageView android:id="@+id/add_button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:src="@drawable/add" android:contentDescription="Add" app:tint="#F30202"/>
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"  android:padding="16dp" android:layout_marginTop="8dp">
+            <!--  Card details can be placed here, like card number and expiry  -->
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:layout_marginTop="16dp">
+            <ImageView android:id="@+id/pay_image" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/paypal"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@id/pay_image" android:layout_marginStart="8dp" android:text="Pay Play" android:textSize="16sp" android:layout_centerVertical="true"/>
+            <ImageView android:id="@+id/edit_card_button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:src="@drawable/edit" android:contentDescription="Edit"/>
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:layout_marginTop="8dp">
+            <ImageView android:id="@+id/payfree_image" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/payfree"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@id/payfree_image" android:layout_marginStart="8dp" android:text="Pay Free" android:textSize="16sp" android:layout_centerVertical="true"/>
+            <ImageView android:id="@+id/add_payfree_button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:src="@drawable/plus" android:contentDescription="Add Pay Free"/>
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

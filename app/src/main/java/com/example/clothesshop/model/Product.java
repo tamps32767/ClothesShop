@@ -20,6 +20,26 @@ public class Product implements Parcelable {
         this.imageUrl = imageUrl;
     }
 
+    protected Product(Parcel in) {
+        name = in.readString();
+        description = in.readString();
+        price = in.readString();
+        quantity = in.readString();
+        imageUrl = in.readString();
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
+
     public String getName() {
         return name;
     }
