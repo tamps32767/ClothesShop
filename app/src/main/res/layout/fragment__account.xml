@@ -23,11 +23,11 @@
     </RelativeLayout>
 
     <FrameLayout
-        android:layout_width="375dp"
+        android:layout_width="350dp"
         android:layout_height="100dp"
         android:layout_marginTop="100dp"
         android:layout_marginLeft="20dp"
-        android:background="@color/cardview_shadow_end_color">
+        android:background="@drawable/border">
         <ImageView
             android:id="@+id/profile_image"
             android:layout_width="72dp"

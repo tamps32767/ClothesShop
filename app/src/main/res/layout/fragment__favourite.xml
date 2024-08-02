@@ -28,7 +28,7 @@
             <View android:layout_width="40dp" android:layout_height="40dp" android:background="@drawable/brown"/>
         </LinearLayout>
         <!--  Add to Cart Button  -->
-        <Button android:id="@+id/add_to_cart_button" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="ADD TO CART" android:backgroundTint="#E81F10"/>
+        <Button android:id="@+id/btnAddToCart" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="ADD TO CART" android:backgroundTint="#F54749"/>
         <!--  Red background  -->
     </LinearLayout>
 </ScrollView>

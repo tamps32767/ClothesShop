@@ -1,0 +1,5 @@
+<!-- res/drawable/rounded_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF"/> <!-- Màu nền của FrameLayout -->
+    <corners android:radius="16dp"/> <!-- Thay đổi giá trị để điều chỉnh độ bo góc -->
+</shape>
