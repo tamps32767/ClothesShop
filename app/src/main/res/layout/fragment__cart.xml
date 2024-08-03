@@ -92,6 +92,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Total: "
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -99,6 +100,7 @@
                 android:gravity="start"/>
 
             <TextView
+                android:id="@+id/txtPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start"
