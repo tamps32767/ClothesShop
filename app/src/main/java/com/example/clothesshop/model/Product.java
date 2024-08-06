@@ -8,11 +8,11 @@ import androidx.annotation.NonNull;
 public class Product implements Parcelable {
     private String name;
     private String description;
-    private String price;
+    private Double price;
     private String quantity;
     private String imageUrl;
 
-    public Product(String name, String description, String price, String quantity, String imageUrl) {
+    public Product(String name, String description, Double price, String quantity, String imageUrl) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -23,7 +23,7 @@ public class Product implements Parcelable {
     protected Product(Parcel in) {
         name = in.readString();
         description = in.readString();
-        price = in.readString();
+        price = Double.valueOf(in.readString());
         quantity = in.readString();
         imageUrl = in.readString();
     }
@@ -56,11 +56,12 @@ public class Product implements Parcelable {
         this.description = description;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -89,7 +90,7 @@ public class Product implements Parcelable {
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeString(description);
-        parcel.writeString(price);
+        parcel.writeDouble(price);
         parcel.writeString(quantity);
         parcel.writeString(imageUrl);
     }
