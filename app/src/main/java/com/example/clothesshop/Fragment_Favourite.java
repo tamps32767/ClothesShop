@@ -53,7 +53,7 @@ public class Fragment_Favourite extends Fragment {
                         Cart.getInstance().addProduct(product);
                         Fragment cartFragment = new Fragment_Cart();
                         getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.rcvCart, cartFragment) // Change `fragment_container` to your container ID
+                                .replace(R.id.framelayout, cartFragment) // Change `fragment_container` to your container ID
                                 .addToBackStack(null)
                                 .commit();
                     }

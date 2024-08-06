@@ -18,7 +18,6 @@ import com.example.clothesshop.model.Product;
 
 import java.util.List;
 
-
 public class Fragment_Cart extends Fragment implements OnCartUpdateListener {
     private Context context;
     private CartAdapter cartAdapter;
@@ -35,6 +34,7 @@ public class Fragment_Cart extends Fragment implements OnCartUpdateListener {
 
         List<Product> cartProducts = Cart.getInstance().getProducts();
         cartAdapter = new CartAdapter(getContext(), cartProducts, this);
+
         rcvCart.setLayoutManager(new LinearLayoutManager(getContext()));
         rcvCart.setAdapter(cartAdapter);
 

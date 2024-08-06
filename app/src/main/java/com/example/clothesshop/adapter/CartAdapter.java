@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,58 +18,60 @@ import com.example.clothesshop.model.Product;
 
 import java.util.List;
 
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
-
-    private List<Product> products;
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
     private Context context;
-    private OnCartUpdateListener cartUpdateListener;
+    private List<Product> cartProducts;
+    private OnCartUpdateListener listener;
 
-    public CartAdapter(Context context, List<Product> products, OnCartUpdateListener cartUpdateListener) {
+    public CartAdapter(Context context, List<Product> cartProducts, OnCartUpdateListener listener) {
         this.context = context;
-        this.products = products;
-        this.cartUpdateListener = cartUpdateListener;
+        this.cartProducts = cartProducts;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_card, parent, false);
-        return new ViewHolder(view);
+        return new CartViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product product = products.get(position);
-        holder.productName.setText(product.getName());
-        holder.productPrice.setText(String.valueOf(product.getPrice()));
-        // holder.productImage.setImageResource(product.getImage()); // Set the product image here
+    public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
+        Product product = cartProducts.get(position);
+        holder.txtNameProducts.setText(product.getName());
+        holder.txtPriceProducts.setText("Rs. " + String.format("%.2f", product.getPrice()));
+        // Set image resource if you have it, e.g. holder.imgProducts.setImageResource(product.getImageResId());
 
-        holder.removeProduct.setOnClickListener(v -> {
-            Cart.getInstance().removeProduct(product);
-            products.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, products.size());
-            if (cartUpdateListener != null) {
-                cartUpdateListener.onCartUpdated();
+        holder.imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cart.getInstance().removeProduct(product);
+                notifyDataSetChanged();
+                if (listener != null) {
+                    listener.onCartUpdated();
+                }
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return cartProducts.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView productName, productPrice;
-        ImageView productImage, removeProduct;
+    public static class CartViewHolder extends RecyclerView.ViewHolder {
+        TextView txtNameProducts;
+        TextView txtPriceProducts;
+        ImageView imgProducts;
+        ImageButton imgDelete;
 
-        public ViewHolder(@NonNull View itemView) {
+        public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-            productName = itemView.findViewById(R.id.product_name);
-            productPrice = itemView.findViewById(R.id.product_price);
-            productImage = itemView.findViewById(R.id.product_image);
-            removeProduct = itemView.findViewById(R.id.imgDelete);
+            txtNameProducts = itemView.findViewById(R.id.txtNameProducts);
+            txtPriceProducts = itemView.findViewById(R.id.txtPriceProducts);
+            imgProducts = itemView.findViewById(R.id.imgProducts);
+            imgDelete = itemView.findViewById(R.id.imgDelete);
         }
     }
 }
