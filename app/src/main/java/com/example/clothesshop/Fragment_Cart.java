@@ -1,33 +1,28 @@
 package com.example.clothesshop;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.clothesshop.adapter.CartAdapter;
+import com.example.clothesshop.model.Cart;
 import com.example.clothesshop.model.Product;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_Cart#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Fragment_Cart extends Fragment {
+import java.util.List;
 
-    private static final String ARG_PRODUCT = "product";
 
-    public static Fragment_Cart newInstance(Product product) {
-        Fragment_Cart fragment = new Fragment_Cart();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_PRODUCT, product);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class Fragment_Cart extends Fragment implements OnCartUpdateListener {
+    private Context context;
+    private CartAdapter cartAdapter;
+    private TextView txtPrice;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,21 +30,30 @@ public class Fragment_Cart extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment__cart, container, false);
 
+        RecyclerView rcvCart = view.findViewById(R.id.rcvCart);
+        txtPrice = view.findViewById(R.id.txtPrice);
 
-        // Retrieve the product from arguments
-        if (getArguments() != null) {
-            Product product = getArguments().getParcelable(ARG_PRODUCT);
-            if (product != null) {
-                // Update UI or handle product data here
-                // For example:
-                TextView txtNameProducts = view.findViewById(R.id.txtNameProducts);
-                TextView txtPriceProducts = view.findViewById(R.id.txtPriceProducts);
+        List<Product> cartProducts = Cart.getInstance().getProducts();
+        cartAdapter = new CartAdapter(getContext(), cartProducts, this);
+        rcvCart.setLayoutManager(new LinearLayoutManager(getContext()));
+        rcvCart.setAdapter(cartAdapter);
 
-                txtNameProducts.setText(product.getName());
-                txtPriceProducts.setText(product.getPrice());
-            }
-        }
+        updateTotalPrice();
 
         return view;
+    }
+
+    private void updateTotalPrice() {
+        double totalPrice = 0;
+        List<Product> cartProducts = Cart.getInstance().getProducts();
+        for (Product product : cartProducts) {
+            totalPrice += product.getPrice();
+        }
+        txtPrice.setText("Total: $" + String.format("%.2f", totalPrice));
+    }
+
+    @Override
+    public void onCartUpdated() {
+        updateTotalPrice();
     }
 }
