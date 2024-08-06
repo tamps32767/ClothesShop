@@ -22,7 +22,7 @@ public class ProductDao {
         if (cursor.getCount() != 0){
             cursor.moveToFirst();
             do {
-                list.add(new Product(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5)));
+                list.add(new Product(cursor.getString(1), cursor.getString(2), cursor.getDouble(3), cursor.getString(4), cursor.getString(5)));
             }while (cursor.moveToNext());
         }
 
