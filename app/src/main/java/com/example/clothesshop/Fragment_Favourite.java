@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.clothesshop.model.Cart;
 import com.example.clothesshop.model.Product;
 
 
@@ -34,32 +35,29 @@ public class Fragment_Favourite extends Fragment {
         View view = inflater.inflate(R.layout.fragment__favourite, container, false);
 
         TextView productName = view.findViewById(R.id.product_name);
-        TextView productDescription = view.findViewById(R.id.product_price);
+        TextView productPrice = view.findViewById(R.id.product_price);
         Button btnAddToCart = view.findViewById(R.id.btnAddToCart);
         // Khởi tạo các view khác
 
-        btnAddToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getArguments() != null) {
-                    Product product = getArguments().getParcelable(ARG_PRODUCT);
-                    if (product != null) {
-                        Fragment cartFragment = Fragment_Cart.newInstance(product);
-                        getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.frCart, cartFragment) // Change `fragment_container` to your container ID
-                                .addToBackStack(null)
-                                .commit();
-                    }
-                }
-            }
-        });
+
 
         if (getArguments() != null) {
             Product product = getArguments().getParcelable(ARG_PRODUCT);
             if (product != null) {
                 productName.setText(product.getName());
-                productDescription.setText(product.getPrice());
+                productPrice.setText(String.valueOf(product.getPrice()));
                 // Cài đặt các chi tiết sản phẩm khác
+                btnAddToCart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Cart.getInstance().addProduct(product);
+                        Fragment cartFragment = new Fragment_Cart();
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.rcvCart, cartFragment) // Change `fragment_container` to your container ID
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                });
             }
         }
 
