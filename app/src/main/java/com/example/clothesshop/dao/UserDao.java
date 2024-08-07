@@ -27,6 +27,7 @@ public class UserDao {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("email", cursor.getString(2));
             editor.putString("username", cursor.getString(1));
+            editor.putString("loaitaikhoan", cursor.getString(4));
             editor.commit();
             
             return true;

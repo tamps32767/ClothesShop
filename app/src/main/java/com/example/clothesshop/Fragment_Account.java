@@ -35,10 +35,12 @@ public class Fragment_Account extends Fragment {
         String email = sharedPreferences.getString("email", "");
         profile_email.setText(email);
 
+
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), Sign_In.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
             }

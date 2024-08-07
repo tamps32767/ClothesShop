@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.clothesshop.databinding.ActivityMainBinding;
@@ -27,8 +30,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment;
-                if (item.getItemId() == R.id.home){
+                if (item.getItemId() == R.id.home) {
                     fragment = new Fragment_Home();
+                } else if (item.getItemId() == R.id.homeAdimin) {
+                    fragment = new Fragment_HomeAdmin();
                 }else if (item.getItemId() == R.id.favourite){
                     fragment = new Fragment_Favourite();
                 } else if (item.getItemId() == R.id.cart) {
@@ -40,6 +45,18 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        SharedPreferences sharedPreferences = getSharedPreferences("THONGTIN", MODE_PRIVATE);
+        String loaitk = sharedPreferences.getString("loaitaikhoan", "");
+        if (loaitk.equals("Admin")){
+            Menu menu = btnMenu.getMenu();
+            menu.findItem(R.id.home).setVisible(false);
+            menu.findItem(R.id.favourite).setVisible(false);
+            menu.findItem(R.id.cart).setVisible(false);
+        }else {
+            Menu menu = btnMenu.getMenu();
+            menu.findItem(R.id.homeAdimin).setVisible(false);
+        }
 
     }
 }
