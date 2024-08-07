@@ -8,10 +8,11 @@
     android:padding="10dp">
 
     <TextView
+        android:id="@+id/tvHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Match your style"
-        android:textSize="26dp"
+        android:textSize="26sp"
         android:textColor="@color/black"
         android:padding="10dp"/>
 
@@ -20,18 +21,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/item_search"
-        android:hint="..."/>
+        android:hint="..."
+        android:layout_below="@id/tvHint"
+        android:layout_marginTop="10dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvProducts"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/svSearch"
+        android:layout_marginTop="10dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="10"  />
-
+        android:layout_margin="10dp"
+        android:src="@drawable/add"/>
 
 </RelativeLayout>
