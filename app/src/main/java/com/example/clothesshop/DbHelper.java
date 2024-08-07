@@ -17,10 +17,10 @@ public class DbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(dbUser);
 
 
-        String dbCategory = "CREATE TABLE CATEGORY(categoryid text primary key, name text)";
+        String dbCategory = "CREATE TABLE CATEGORY(categoryid text primary key autoincrement, name text)";
         sqLiteDatabase.execSQL(dbCategory);
 
-        String dbProduct = "CREATE TABLE PRODUCT(productid text primary key, name text, description text, price text, image integer, quality text)";
+        String dbProduct = "CREATE TABLE PRODUCT(productid text primary key autoincrement, name text, description text, price text, image integer, quality text)";
         sqLiteDatabase.execSQL(dbProduct);
 
 
