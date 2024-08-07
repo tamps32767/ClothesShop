@@ -22,6 +22,7 @@ public class Fragment_Cart extends Fragment implements OnCartUpdateListener {
     private Context context;
     private CartAdapter cartAdapter;
     private TextView txtPrice;
+    private RecyclerView rcvCart;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,7 +30,7 @@ public class Fragment_Cart extends Fragment implements OnCartUpdateListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment__cart, container, false);
 
-        RecyclerView rcvCart = view.findViewById(R.id.rcvCart);
+        rcvCart = view.findViewById(R.id.rcvCart);
         txtPrice = view.findViewById(R.id.txtPrice);
 
         List<Product> cartProducts = Cart.getInstance().getProducts();

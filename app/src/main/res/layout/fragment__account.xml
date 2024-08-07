@@ -163,6 +163,7 @@
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/log_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
@@ -171,7 +172,6 @@
                 android:src="@drawable/ic_logout"
                 android:layout_marginTop="13dp"/>
             <TextView
-                android:id="@+id/log_out"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="16dp"
