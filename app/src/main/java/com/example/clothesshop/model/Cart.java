@@ -16,6 +16,9 @@ public class Cart {private static Cart instance;
         }
         return instance;
     }
+    public void clearCart() {
+        products.clear();
+    }
 
     public void addProduct(Product product) {
         products.add(product);

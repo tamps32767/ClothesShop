@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.clothesshop.model.Cart;
 import com.example.clothesshop.model.Order;
 import com.example.clothesshop.model.OrderHistory;
 import com.google.android.material.textfield.TextInputEditText;
@@ -45,9 +46,11 @@ public class AddressActivity extends AppCompatActivity {
                 if (shippingInfo == null) shippingInfo = "";
                 if (shippingInfo1 == null) shippingInfo1 = "";
 
-                order.setShippingInfo(shippingInfo + " " + shippingInfo1);
+                order.setShippingInfo(shippingInfo + " /n" + shippingInfo1);
 
                 OrderHistory.getInstance().addOrder(order);
+
+                Cart.getInstance().clearCart();
 
                 Intent intent = new Intent(AddressActivity.this, MainActivity.class);
                 startActivity(intent);
