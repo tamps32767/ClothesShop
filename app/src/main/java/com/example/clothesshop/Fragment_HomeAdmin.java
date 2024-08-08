@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.clothesshop.adapter.ProductAdapter;
 import com.example.clothesshop.dao.ProductDao;
 import com.example.clothesshop.model.Product;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Fragment_HomeAdmin extends Fragment {
     private ProductAdapter productAdapter;
     private List<Product> mListProduct;
     private SearchView svSearch;
+    private FloatingActionButton flaAdd;
 
 
     @Override
@@ -36,6 +38,7 @@ public class Fragment_HomeAdmin extends Fragment {
 
         rcvProducts = view.findViewById(R.id.rcvProducts);
         svSearch = view.findViewById(R.id.svSearch);
+        flaAdd = view.findViewById(R.id.flaAdd);
 
         svSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
