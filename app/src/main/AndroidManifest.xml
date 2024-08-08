@@ -26,6 +26,7 @@
         <activity android:name=".Sign_Up" />
         <activity android:name=".Payment" />
         <activity android:name=".AddressActivity" />
+        <activity android:name=".OrderHisroryMain" />
     </application>
 
 </manifest>

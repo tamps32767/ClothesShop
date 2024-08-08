@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.clothesshop.adapter.CartAdapter;
 import com.example.clothesshop.model.Cart;
+import com.example.clothesshop.model.Order;
 import com.example.clothesshop.model.Product;
 
 import java.util.List;
@@ -48,7 +49,11 @@ public class Fragment_Cart extends Fragment implements OnCartUpdateListener {
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Payment.class);
+                List<Product> selectedProducts = Cart.getInstance().getProducts();
+                Order order = new Order(selectedProducts, null);
+
+                Intent intent = new Intent(getActivity(), AddressActivity.class);
+                intent.putExtra("order", order);
                 startActivity(intent);
             }
         });

@@ -13,14 +13,11 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String dbUser = "CREATE TABLE USER(userid text primary key, username text, email text, password text, loaitaikhoan text, phone text, adress text)";
+        String dbUser = "CREATE TABLE USER(userid integer PRIMARY KEY AUTOINCREMENT, username text, email text, password text, loaitaikhoan text, phone text, adress text)";
         sqLiteDatabase.execSQL(dbUser);
 
 
-        String dbCategory = "CREATE TABLE CATEGORY(categoryid text primary key autoincrement, name text)";
-        sqLiteDatabase.execSQL(dbCategory);
-
-        String dbProduct = "CREATE TABLE PRODUCT(productid text primary key autoincrement, name text, description text, price text, image integer, quality text)";
+        String dbProduct = "CREATE TABLE PRODUCT(productid integer PRIMARY KEY AUTOINCREMENT, name text, description text, price text, image integer, quality text)";
         sqLiteDatabase.execSQL(dbProduct);
 
 

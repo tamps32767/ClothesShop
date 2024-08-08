@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 public class Fragment_Account extends Fragment {
-    private TextView profile_name, profile_email;
+    private TextView profile_name, profile_email, order_history;
     private FrameLayout log_out;
 
     @Override
@@ -27,6 +27,7 @@ public class Fragment_Account extends Fragment {
         profile_name = view.findViewById(R.id.profile_name);
         profile_email = view.findViewById(R.id.profile_email);
         log_out = view.findViewById(R.id.log_out);
+        order_history = view.findViewById(R.id.order_history);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("THONGTIN", MODE_PRIVATE);
 
@@ -43,6 +44,14 @@ public class Fragment_Account extends Fragment {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+            }
+        });
+
+        order_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), OrderHisroryMain.class);
+                startActivity(intent);
             }
         });
 

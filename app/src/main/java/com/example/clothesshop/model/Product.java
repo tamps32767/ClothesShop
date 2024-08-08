@@ -23,9 +23,32 @@ public class Product implements Parcelable {
     protected Product(Parcel in) {
         name = in.readString();
         description = in.readString();
-        price = Double.valueOf(in.readString());
+        if (in.readByte() == 0) {
+            price = null;
+        } else {
+            price = in.readDouble();
+        }
         quantity = in.readString();
         imageUrl = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int flags) {
+        parcel.writeString(name);
+        parcel.writeString(description);
+        if (price == null) {
+            parcel.writeByte((byte) 0); // Write a flag indicating null
+        } else {
+            parcel.writeByte((byte) 1); // Write a flag indicating not null
+            parcel.writeDouble(price);
+        }
+        parcel.writeString(quantity);
+        parcel.writeString(imageUrl);
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -60,7 +83,6 @@ public class Product implements Parcelable {
         return price;
     }
 
-
     public void setPrice(Double price) {
         this.price = price;
     }
@@ -79,19 +101,5 @@ public class Product implements Parcelable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel parcel, int i) {
-        parcel.writeString(name);
-        parcel.writeString(description);
-        parcel.writeDouble(price);
-        parcel.writeString(quantity);
-        parcel.writeString(imageUrl);
     }
 }
