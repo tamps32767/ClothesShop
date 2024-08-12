@@ -27,6 +27,12 @@ public class Product implements Parcelable {
         this.price = price;
     }
 
+    public Product(Integer productid, String name, Double price) {
+        this.productid = productid;
+        this.name = name;
+        this.price = price;
+    }
+
     protected Product(Parcel in) {
         name = in.readString();
         description = in.readString();

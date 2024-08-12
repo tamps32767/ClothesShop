@@ -30,6 +30,7 @@ public class Fragment_Home extends Fragment {
     private ProductAdapter productAdapter;
     private List<Product> mListProduct;
     private SearchView svSearch;
+    private ProductDao productDao;
 
 
     @Override
@@ -70,7 +71,7 @@ public class Fragment_Home extends Fragment {
                         .addToBackStack(null)
                         .commit();
             }
-        });
+        }, productDao);
         rcvProducts.setAdapter(productAdapter);
 
         return view;

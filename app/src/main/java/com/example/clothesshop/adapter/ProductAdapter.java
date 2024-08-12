@@ -3,18 +3,21 @@ package com.example.clothesshop.adapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.clothesshop.R;
+import com.example.clothesshop.dao.ProductDao;
 import com.example.clothesshop.model.Product;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -25,15 +28,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private List<Product> mListProduct;
     private Context context;
     private OnItemClickListener listener;
+    private ProductDao productDao;
 
     public interface OnItemClickListener {
         void onItemClick(Product product);
     }
 
-    public ProductAdapter(List<Product> list, Context context, OnItemClickListener listener) {
-        this.mListProduct = list;
+    public ProductAdapter(List<Product> mListProduct, Context context, OnItemClickListener listener, ProductDao productDao) {
+        this.mListProduct = mListProduct;
         this.context = context;
         this.listener = listener;
+        this.productDao = productDao;
     }
 
     public void setFilteredList(List<Product> filteredList) {
@@ -118,5 +123,59 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         tfName.setText(product.getName());
         tfPrice.setText(String.valueOf(product.getPrice()));
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer productid = product.getProductid();
+                String tensp = tfName.getText().toString();
+                String giasp = tfPrice.getText().toString();
+
+                if (tensp.length() == 0 || giasp.length() == 0 ){
+                    Toast.makeText(context, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                }else {
+                    Product productUpdate = new Product(productid, tensp, Double.parseDouble(giasp));
+                    boolean check = productDao.suaSP(productUpdate);
+                    if (check){
+                        Toast.makeText(context, "Chỉnh sửa thành công", Toast.LENGTH_SHORT).show();
+                        mListProduct.clear();
+                        mListProduct = productDao.getProduct();
+                        notifyDataSetChanged();
+                        alertDialog.dismiss();
+                    }else {
+                        Toast.makeText(context, "Chỉnh sửa thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int productid = product.getProductid();
+
+                // Xác nhận xóa sản phẩm
+                new AlertDialog.Builder(context)
+                        .setTitle("Xác nhận")
+                        .setMessage("Bạn có chắc chắn muốn xóa sản phẩm này không?")
+                        .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                boolean check = productDao.xoaSP(productid);
+                                if (check) {
+                                    Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                                    mListProduct.clear();
+                                    mListProduct = productDao.getProduct();
+                                    notifyDataSetChanged();
+                                    alertDialog.dismiss();
+                                } else {
+                                    Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .setNegativeButton("Hủy", null)
+                        .show();
+            }
+        });
     }
 }

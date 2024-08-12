@@ -23,7 +23,7 @@ public class ProductDao {
         if (cursor.getCount() != 0){
             cursor.moveToFirst();
             do {
-                list.add(new Product(cursor.getInt(1), cursor.getString(2), cursor.getString(3), cursor.getDouble(4), cursor.getString(5), cursor.getString(6)));
+                list.add(new Product(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3), cursor.getString(4), cursor.getString(5)));
             }while (cursor.moveToNext());
         }
 
@@ -53,6 +53,16 @@ public class ProductDao {
 
         int check = sqLiteDatabase.update("PRODUCT",  contentValues,"productid = ?", new String[]{String.valueOf(product.getProductid())});
         if (check == 0){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean xoaSP (Integer productid){
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+
+        int check = sqLiteDatabase.delete("PRODUCT","productid = ?", new String[]{String.valueOf(productid)});
+        if (check <= 0){
             return false;
         }
         return true;
