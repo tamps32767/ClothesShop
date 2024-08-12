@@ -64,8 +64,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.txtPriceProducts.setText(String.valueOf(product.getPrice()));
         Glide.with(holder.itemView.getContext())
                 .load(product.getImageUrl())
-                .placeholder(R.drawable.product) // Hình ảnh hiển thị khi đang tải
-                .error(R.drawable.product) // Hình ảnh hiển thị khi tải lỗi
+                .placeholder(R.drawable.sp2) // Hình ảnh hiển thị khi đang tải
+                .error(R.drawable.sp2) // Hình ảnh hiển thị khi tải lỗi
                 .into(holder.imgProducts);
 
         holder.imgProducts.setOnClickListener(new View.OnClickListener() {
