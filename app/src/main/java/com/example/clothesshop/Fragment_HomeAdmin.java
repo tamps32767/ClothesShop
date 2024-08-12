@@ -1,5 +1,8 @@
 package com.example.clothesshop;
 
+import android.app.AlertDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -10,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.clothesshop.adapter.ProductAdapter;
 import com.example.clothesshop.dao.ProductDao;
 import com.example.clothesshop.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +31,8 @@ public class Fragment_HomeAdmin extends Fragment {
     private RecyclerView rcvProducts;
     private ProductAdapter productAdapter;
     private List<Product> mListProduct;
-    private SearchView svSearch;
     private FloatingActionButton flaAdd;
+    private ProductDao productDao;
 
 
     @Override
@@ -37,23 +42,62 @@ public class Fragment_HomeAdmin extends Fragment {
         View view = inflater.inflate(R.layout.fragment__home_admin, container, false);
 
         rcvProducts = view.findViewById(R.id.rcvProducts);
-        svSearch = view.findViewById(R.id.svSearch);
         flaAdd = view.findViewById(R.id.flaAdd);
 
-        svSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
 
+
+        productDao = new ProductDao(getContext());
+        loadData();
+
+
+        flaAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextChange(String newText) {
-                fillterList(newText);
-                return true;
+            public void onClick(View view) {
+                showDialogAdd();
             }
         });
 
-        ProductDao productDao = new ProductDao(getContext());
+        return view;
+    }
+
+
+    private void showDialogAdd(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_add, null);
+        builder.setView(view);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        TextInputEditText tfName = view.findViewById(R.id.tfName);
+        TextInputEditText tfPrice = view.findViewById(R.id.tfPrice);
+        Button btnAdd = view.findViewById(R.id.btnAdd);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tensp = tfName.getText().toString();
+                String giasp = tfPrice.getText().toString();
+
+                if (tensp.length() == 0 || giasp.length() == 0){
+                    Toast.makeText(getContext(), "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                }else {
+                    Product product = new Product(tensp, Double.parseDouble(giasp));
+                    boolean check = productDao.themSP(product);
+                    if (check){
+                        Toast.makeText(getContext(), "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                        loadData();
+                        alertDialog.dismiss();
+                    }else {
+                        Toast.makeText(getContext(), "Thêm sản phẩm thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+
+    private void loadData(){
         mListProduct = productDao.getProduct();
         ArrayList<Product> list = productDao.getProduct();
 
@@ -71,21 +115,5 @@ public class Fragment_HomeAdmin extends Fragment {
             }
         });
         rcvProducts.setAdapter(productAdapter);
-
-        return view;
-    }
-
-    private void fillterList(String newText) {
-        List<Product> fillteredList = new ArrayList<>();
-        for (Product product : mListProduct) {
-            if (product.getName().toLowerCase().contains(newText.toLowerCase())) {
-                fillteredList.add(product);
-            }
-        }
-        if (fillteredList.isEmpty()){
-            Toast.makeText(getContext(), "Không tìm thấy sản phẩm", Toast.LENGTH_SHORT).show();
-        }else {
-            productAdapter.setFilteredList(fillteredList);
-        }
     }
 }

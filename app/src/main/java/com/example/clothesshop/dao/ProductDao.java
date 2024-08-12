@@ -23,7 +23,7 @@ public class ProductDao {
         if (cursor.getCount() != 0){
             cursor.moveToFirst();
             do {
-                list.add(new Product(cursor.getString(1), cursor.getString(2), cursor.getDouble(3), cursor.getString(4), cursor.getString(5)));
+                list.add(new Product(cursor.getInt(1), cursor.getString(2), cursor.getString(3), cursor.getDouble(4), cursor.getString(5), cursor.getString(6)));
             }while (cursor.moveToNext());
         }
 
@@ -36,10 +36,23 @@ public class ProductDao {
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", product.getName());
         contentValues.put("price", product.getPrice());
-        contentValues.put("quality", product.getQuantity());
 
         long check = sqLiteDatabase.insert("PRODUCT", null, contentValues);
         if (check == -1){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean suaSP(Product product){
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", product.getName());
+        contentValues.put("price", product.getPrice());
+
+        int check = sqLiteDatabase.update("PRODUCT",  contentValues,"productid = ?", new String[]{String.valueOf(product.getProductid())});
+        if (check == 0){
             return false;
         }
         return true;

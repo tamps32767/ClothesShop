@@ -6,18 +6,25 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class Product implements Parcelable {
+    private Integer productid;
     private String name;
     private String description;
     private Double price;
     private String quantity;
     private String imageUrl;
 
-    public Product(String name, String description, Double price, String quantity, String imageUrl) {
+    public Product(Integer productid, String name, String description, Double price, String quantity, String imageUrl) {
+        this.productid = productid;
         this.name = name;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.imageUrl = imageUrl;
+    }
+
+    public Product(String name, Double price) {
+        this.name = name;
+        this.price = price;
     }
 
     protected Product(Parcel in) {
@@ -101,5 +108,13 @@ public class Product implements Parcelable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Integer getProductid() {
+        return productid;
+    }
+
+    public void setProductid(Integer productid) {
+        this.productid = productid;
     }
 }

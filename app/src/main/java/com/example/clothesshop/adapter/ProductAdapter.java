@@ -1,9 +1,12 @@
 package com.example.clothesshop.adapter;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.clothesshop.R;
 import com.example.clothesshop.model.Product;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
@@ -58,6 +62,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 .placeholder(R.drawable.product) // Hình ảnh hiển thị khi đang tải
                 .error(R.drawable.product) // Hình ảnh hiển thị khi tải lỗi
                 .into(holder.imgProducts);
+
+        holder.imgProducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogUpdate(mListProduct.get(holder.getAdapterPosition()));
+            }
+        });
+
     }
 
     @Override
@@ -88,5 +100,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 }
             });
         }
+    }
+
+    private void showDialogUpdate(Product product){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_update, null);
+        builder.setView(view);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        TextInputEditText tfName = view.findViewById(R.id.tfName);
+        TextInputEditText tfPrice = view.findViewById(R.id.tfPrice);
+        Button btnUpdate = view.findViewById(R.id.btnUpdate);
+        Button btnDelete = view.findViewById(R.id.btnDelete);
+
+        tfName.setText(product.getName());
+        tfPrice.setText(String.valueOf(product.getPrice()));
     }
 }
