@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.clothesshop.dao.UserDao;
 import com.example.clothesshop.model.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -19,6 +20,7 @@ import retrofit2.Response;
 
 public class Sign_Up extends AppCompatActivity {
 
+    private UserDao userDao;
     private TextInputEditText tfName;
     private TextInputEditText tfEmail;
     private TextInputEditText tfPassword;
@@ -36,9 +38,10 @@ public class Sign_Up extends AppCompatActivity {
         tfEmail = findViewById(R.id.tfEmail);
         tfPassword = findViewById(R.id.tfPassword);
         tfrePassword = findViewById(R.id.tfrePassword);
-
         btnSignUp = findViewById(R.id.btnSignUp);
         txtSignIn = findViewById(R.id.txtSignIn);
+
+        userDao = new UserDao(this);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +51,17 @@ public class Sign_Up extends AppCompatActivity {
                 String password = tfPassword.getText().toString();
                 String rePassword = tfrePassword.getText().toString();
 
+                if (!password.equals(rePassword)){
+                    Toast.makeText(Sign_Up.this, "Mật khẩu không trùng", Toast.LENGTH_SHORT).show();
+                }else {
+                    boolean check = userDao.checkDangKy(email, password, name);
+                    if (check){
+                        Toast.makeText(Sign_Up.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else {
+                        Toast.makeText(Sign_Up.this, "Đăng kí thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 

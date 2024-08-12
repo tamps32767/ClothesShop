@@ -24,11 +24,11 @@
     </RelativeLayout>
 
     <FrameLayout
-        android:layout_width="375dp"
+        android:layout_width="350dp"
         android:layout_height="100dp"
         android:layout_marginTop="100dp"
         android:layout_marginLeft="20dp"
-        android:background="@drawable/card">
+        android:background="@drawable/border">
         <ImageView
             android:id="@+id/profile_image"
             android:layout_width="72dp"
@@ -164,6 +164,7 @@
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/log_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
@@ -172,7 +173,6 @@
                 android:src="@drawable/ic_logout"
                 android:layout_marginTop="13dp"/>
             <TextView
-                android:id="@+id/log_out"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="16dp"

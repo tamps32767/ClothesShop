@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -16,30 +15,30 @@ import android.widget.Toast;
 import com.example.clothesshop.adapter.ProductAdapter;
 import com.example.clothesshop.dao.ProductDao;
 import com.example.clothesshop.model.Product;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class Fragment_Home extends Fragment {
+public class Fragment_HomeAdmin extends Fragment {
 
     private RecyclerView rcvProducts;
     private ProductAdapter productAdapter;
     private List<Product> mListProduct;
     private SearchView svSearch;
+    private FloatingActionButton flaAdd;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment__home, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment__home_admin, container, false);
 
         rcvProducts = view.findViewById(R.id.rcvProducts);
         svSearch = view.findViewById(R.id.svSearch);
+        flaAdd = view.findViewById(R.id.flaAdd);
 
         svSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -84,7 +83,7 @@ public class Fragment_Home extends Fragment {
             }
         }
         if (fillteredList.isEmpty()){
-        Toast.makeText(getContext(), "Không tìm thấy sản phẩm", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Không tìm thấy sản phẩm", Toast.LENGTH_SHORT).show();
         }else {
             productAdapter.setFilteredList(fillteredList);
         }

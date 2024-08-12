@@ -56,12 +56,7 @@ public class Sign_In extends AppCompatActivity {
             public void onClick(View view) {
                 String email = tfEmail.getText().toString();
                 String password = tfPassword.getText().toString();
-
                 if (userDao.checkDangNhap(email,password)){
-                    SharedPreferences sharedPreferences = getSharedPreferences("THONGTIN", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("email", email);
-                    editor.commit();
                     startActivity(new Intent(Sign_In.this, MainActivity.class));
                 }else {
                     Toast.makeText(Sign_In.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
